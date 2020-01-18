@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="img/puzzle.jpg">
+    <link rel="icon" type="image/jpg" sizes="32x32" href="img/puzzle.jpg">
+    <meta name="viewport"content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Puzzle</title>
+
+    <meta name="keywords" content="crisscross,html,game,jsgame,redishketch,web development,web application"/>
+    <meta name="description" content="Criss Cross, An HTML5 javascript junior game for entertainment."/>
+    <meta name="subject" content="Criss Cross - HTML5 Javascript Junior Game">
+    <meta name="copyright"content="Redishketch">
+    <meta name="language" content="EN">
+    <meta name="summary" content="Criss Cross, An HTML5 javascript junior game for entertainment.">
+    <meta name="author" content="Redishketch, redishketch@gmail.com">
+    <meta name="copyright" content="">
+    <meta name="owner" content="Redishketch">
+    <meta name="url" content="https://crisscross2019.github.io/">
+    <meta name="identifier-URL" content="https://crisscross2019.github.io/">
+    <meta name="category" content="website,game,programing,algorithm,development">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+
+    <meta name="og:title" content="Criss Cross - HTML5 Javascript Junior Game"/>
+    <meta name="og:type" content="website,game,programing,algorithm,development"/>
+    <meta name="og:url" content="https://crisscross2019.github.io/"/>
+    <meta name="og:image" content="https://crisscross2019.github.io/img/banner.png"/>
+    <meta name="og:site_name" content="crisscross2019.github.io"/>
+    <meta name="og:description" content="Criss Cross, An HTML5 javascript junior game for entertainment."/>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.min.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+
+</head>
+<body>
+
+
+<div class="cross_board">
+    <ul class="cross_board_boxes">
+        <li class="cross_board_box cross_board_box_1">1</li>
+        <li class="cross_board_box cross_board_box_2">2</li>
+        <li class="cross_board_box cross_board_box_3">3</li>
+        <li class="cross_board_box cross_board_box_4">4</li>
+        <li class="cross_board_box cross_board_box_5">5</li>
+        <li class="cross_board_box cross_board_box_6">6</li>
+        <li class="cross_board_box cross_board_box_7">7</li>
+        <li class="cross_board_box cross_board_box_8">8</li>
+    </ul>
+</div>
+
+
+</body>
+
+
+<script>
+    document.onkeyup = function (event) {
+        if(event.which === 37){
+            moveLeft();
+        }
+        else if(event.which === 38){
+            moveUp();
+        }
+        else if(event.which === 39){
+            moveRight();
+        }
+        else if(event.which === 40){
+            moveDown();
+        }
+
+    };
+
+    function getEmptyBox() {
+        var position = 0;
+        for (var i=1;i<=9;i++){
+            if($('.cross_board_box_'+i).length === 0){
+                position = i;
+            }
+        }
+        return position;
+    }
+    function moveDown() {
+        let position = getEmptyBox();
+        if(position === 4){ $('.cross_board_box_1').addClass('cross_board_box_'+position).removeClass('cross_board_box_1'); }
+        if(position === 5){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2'); }
+        if(position === 6){ $('.cross_board_box_3').addClass('cross_board_box_'+position).removeClass('cross_board_box_3'); }
+        if(position === 7){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4'); }
+        if(position === 8){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5'); }
+        if(position === 9){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6'); }
+    }
+    function moveUp() {
+        let position = getEmptyBox();
+        if(position === 1){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4'); }
+        if(position === 2){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5'); }
+        if(position === 3){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6'); }
+        if(position === 4){ $('.cross_board_box_7').addClass('cross_board_box_'+position).removeClass('cross_board_box_7'); }
+        if(position === 5){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8'); }
+        if(position === 6){ $('.cross_board_box_9').addClass('cross_board_box_'+position).removeClass('cross_board_box_9'); }
+    }
+    function moveLeft() {
+        let position = getEmptyBox();
+        if(position === 1){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2'); }
+        if(position === 2){ $('.cross_board_box_3').addClass('cross_board_box_'+position).removeClass('cross_board_box_3'); }
+        if(position === 4){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5'); }
+        if(position === 5){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6'); }
+        if(position === 7){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8'); }
+        if(position === 8){ $('.cross_board_box_9').addClass('cross_board_box_'+position).removeClass('cross_board_box_9'); }
+    }
+    function moveRight() {
+        let position = getEmptyBox();
+        if(position === 2){ $('.cross_board_box_1').addClass('cross_board_box_'+position).removeClass('cross_board_box_1'); }
+        if(position === 3){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2'); }
+        if(position === 5){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4'); }
+        if(position === 6){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5'); }
+        if(position === 8){ $('.cross_board_box_7').addClass('cross_board_box_'+position).removeClass('cross_board_box_7'); }
+        if(position === 9){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8'); }
+    }
+</script>
+
+
+</html>
