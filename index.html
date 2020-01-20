@@ -8,6 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Puzzle</title>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <meta name="keywords" content="crisscross,html,game,jsgame,redishketch,web development,web application"/>
     <meta name="description" content="Criss Cross, An HTML5 javascript junior game for entertainment."/>
     <meta name="subject" content="Criss Cross - HTML5 Javascript Junior Game">
@@ -34,44 +36,74 @@
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.min.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
-
 </head>
 <body>
-
-
-<div class="cross_board">
-    <ul class="cross_board_boxes">
-        <li class="cross_board_box cross_board_box_1">1</li>
-        <li class="cross_board_box cross_board_box_2">2</li>
-        <li class="cross_board_box cross_board_box_3">3</li>
-        <li class="cross_board_box cross_board_box_4">4</li>
-        <li class="cross_board_box cross_board_box_5">5</li>
-        <li class="cross_board_box cross_board_box_6">6</li>
-        <li class="cross_board_box cross_board_box_7">7</li>
-        <li class="cross_board_box cross_board_box_8">8</li>
-    </ul>
-</div>
-
-
+    <div style="margin-left: 20px;margin-top: -458px;">
+        <button type="submit"  onClick="shuffle()">Restart</button>
+    </div>
+    <div class="cross_board">
+        <ul class="cross_board_boxes">
+            <li class="cross_board_box cross_board_box_1">1</li>
+            <li class="cross_board_box cross_board_box_2">2</li>
+            <li class="cross_board_box cross_board_box_3">3</li>
+            <li class="cross_board_box cross_board_box_4">4</li>
+            <li class="cross_board_box cross_board_box_5">5</li>
+            <li class="cross_board_box cross_board_box_6">6</li>
+            <li class="cross_board_box cross_board_box_7">7</li>
+            <li class="cross_board_box cross_board_box_8">8</li>
+        </ul>
+    </div>
+    <div style="margin-top: -457px;margin-right: 60px;" >
+        <h4 style="color: red">Clicks Count :: <span id="counter"></span></h4>
+    </div>
 </body>
 
-
 <script>
+
+    // function shuffle() {
+    //     for (var cross_board_box_=1;cross_board_box_<=8;cross_board_box_++) {
+    //             var cross_board_box_=Math.floor(Math.random()*8 + 1);
+    //         }
+    // }
+
+
+    // $(document).ready(function () {
+    //     rand = [1,2,3,4,5,6,7,8];
+    //     var item = shuffle(rand);
+    //     let list = '';
+    //     let a = 0;
+    //     for (i = 0; i < rand.length; i++){
+    //         list += `<li class="cross_board_box cross_board_box_${ item[i] }">${ item[i] }</li>`
+    //     }
+    //     $('.cross_board_boxes').html(list);
+    //     console.log(list);
+    // });
+
+    
+    //
+    // function shuffle(array) {
+    //     return array.sort(() => Math.random() - 0.5);
+    // }
+
+    var counter = 0;
     document.onkeyup = function (event) {
         if(event.which === 37){
+            counter++;
             moveLeft();
         }
         else if(event.which === 38){
+            counter++;
             moveUp();
         }
         else if(event.which === 39){
+            counter++;
             moveRight();
         }
         else if(event.which === 40){
+            counter++;
             moveDown();
         }
-
+        $('#counter').html(counter);
     };
 
     function getEmptyBox() {
@@ -119,7 +151,10 @@
         if(position === 8){ $('.cross_board_box_7').addClass('cross_board_box_'+position).removeClass('cross_board_box_7'); }
         if(position === 9){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8'); }
     }
+
+    function shuffle(){
+        window.location.reload();
+    }
+
 </script>
-
-
 </html>
