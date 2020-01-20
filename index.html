@@ -36,6 +36,9 @@
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.min.css">
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 </head>
 <body>
     <div style="margin-left: 30px;margin-top: -800px;">
@@ -56,24 +59,21 @@
     <div style="margin-top: -800px;margin-right: 60px;" >
         <h4 style="color: red">Clicks Count :: <span id="counter"></span></h4>
     </div>
-    <audio src="audio/click.wav" id="clickSound"></audio>
-    <audio src="audio/winner.wav" id="winSound"></audio>
 </body>
 
 <script>
 
     var steps = [
-        [6,2,9,8,1,4,5,7],
-        [3,8,4,1,2,7,6,9],
-        [1,7,8,6,5,4,3,9],
-        [2,5,7,3,8,6,1,9],
-        [4,7,8,2,1,3,6,9],
-        [2,4,7,3,8,5,1,9],
-        [6,3,2,5,7,1,4,9],
-        [5,6,3,8,7,2,1,9],
-        [3,6,1,7,5,2,8,9],
-        [2,9,1,4,5,7,6,8]
-
+        ["6","2","9","8","1","4","5","7"],
+        ["3","8","4","1","2","7","6","9"],
+        ["1","7","8","6","5","4","3","9"],
+        ["2","5","7","3","8","6","1","9"],
+        ["4","7","6","2","1","3","8","5"],
+        ["2","4","7","3","8","5","1","9"],
+        ["6","3","2","5","7","1","4","9"],
+        ["5","6","3","8","7","2","1","9"],
+        ["3","6","1","7","5","2","8","9"],
+        ["6","9","3","8","7","2","1","4"]
     ];
 
     var stepNumber = steps.length;
@@ -84,14 +84,12 @@
         var target = $('.cross_board_boxes');
         var cross_board_box = '';
         $.each(steps[step], function (i,v) {
-            cross_board_box += '<li class="cross_board_box cross_board_box_'+v+'">'+sl+'</li>';
+            cross_board_box += '<li class="cross_board_box cross_board_box_'+v+'"  data-id="'+v+'">'+sl+'</li>';
             sl++;
         });
         target.html(cross_board_box);
     }
     renderPuzzle();
-
-
 
     var counter = 0;
     document.onkeyup = function (event) {
@@ -126,46 +124,68 @@
     function moveDown() {
         let position = getEmptyBox();
         console.log(position)
-        if(position === 4){ $('.cross_board_box_1').addClass('cross_board_box_'+position).removeClass('cross_board_box_1'); }
-        if(position === 5){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2'); }
-        if(position === 6){ $('.cross_board_box_3').addClass('cross_board_box_'+position).removeClass('cross_board_box_3'); }
-        if(position === 7){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4'); }
-        if(position === 8){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5'); }
-        if(position === 9){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6'); }
+        if(position === 4){ $('.cross_board_box_1').addClass('cross_board_box_'+position).removeClass('cross_board_box_1').attr('data-id',position); }
+        if(position === 5){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2').attr('data-id',position); }
+        if(position === 6){ $('.cross_board_box_3').addClass('cross_board_box_'+position).removeClass('cross_board_box_3').attr('data-id',position); }
+        if(position === 7){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4').attr('data-id',position); }
+        if(position === 8){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5').attr('data-id',position); }
+        if(position === 9){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6').attr('data-id',position); }
+        winsteps();
     }
     function moveUp() {
         let position = getEmptyBox();
-        if(position === 1){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4'); }
-        if(position === 2){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5'); }
-        if(position === 3){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6'); }
-        if(position === 4){ $('.cross_board_box_7').addClass('cross_board_box_'+position).removeClass('cross_board_box_7'); }
-        if(position === 5){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8'); }
-        if(position === 6){ $('.cross_board_box_9').addClass('cross_board_box_'+position).removeClass('cross_board_box_9'); }
+        if(position === 1){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4').attr('data-id',position); }
+        if(position === 2){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5').attr('data-id',position); }
+        if(position === 3){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6').attr('data-id',position); }
+        if(position === 4){ $('.cross_board_box_7').addClass('cross_board_box_'+position).removeClass('cross_board_box_7').attr('data-id',position); }
+        if(position === 5){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8').attr('data-id',position); }
+        if(position === 6){ $('.cross_board_box_9').addClass('cross_board_box_'+position).removeClass('cross_board_box_9').attr('data-id',position); }
+        winsteps();
     }
     function moveLeft() {
         let position = getEmptyBox();
-        if(position === 1){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2'); }
-        if(position === 2){ $('.cross_board_box_3').addClass('cross_board_box_'+position).removeClass('cross_board_box_3'); }
-        if(position === 4){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5'); }
-        if(position === 5){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6'); }
-        if(position === 7){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8'); }
-        if(position === 8){ $('.cross_board_box_9').addClass('cross_board_box_'+position).removeClass('cross_board_box_9'); }
+        if(position === 1){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2').attr('data-id',position); }
+        if(position === 2){ $('.cross_board_box_3').addClass('cross_board_box_'+position).removeClass('cross_board_box_3').attr('data-id',position); }
+        if(position === 4){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5').attr('data-id',position); }
+        if(position === 5){ $('.cross_board_box_6').addClass('cross_board_box_'+position).removeClass('cross_board_box_6').attr('data-id',position); }
+        if(position === 7){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8').attr('data-id',position); }
+        if(position === 8){ $('.cross_board_box_9').addClass('cross_board_box_'+position).removeClass('cross_board_box_9').attr('data-id',position); }
+        winsteps();
     }
+
     function moveRight() {
         let position = getEmptyBox();
-        if(position === 2){ $('.cross_board_box_1').addClass('cross_board_box_'+position).removeClass('cross_board_box_1'); }
-        if(position === 3){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2'); }
-        if(position === 5){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4'); }
-        if(position === 6){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5'); }
-        if(position === 8){ $('.cross_board_box_7').addClass('cross_board_box_'+position).removeClass('cross_board_box_7'); }
-        if(position === 9){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8'); }
+        if(position === 2){ $('.cross_board_box_1').addClass('cross_board_box_'+position).removeClass('cross_board_box_1').attr('data-id',position); }
+        if(position === 3){ $('.cross_board_box_2').addClass('cross_board_box_'+position).removeClass('cross_board_box_2').attr('data-id',position); }
+        if(position === 5){ $('.cross_board_box_4').addClass('cross_board_box_'+position).removeClass('cross_board_box_4').attr('data-id',position); }
+        if(position === 6){ $('.cross_board_box_5').addClass('cross_board_box_'+position).removeClass('cross_board_box_5').attr('data-id',position); }
+        if(position === 8){ $('.cross_board_box_7').addClass('cross_board_box_'+position).removeClass('cross_board_box_7').attr('data-id',position); }
+        if(position === 9){ $('.cross_board_box_8').addClass('cross_board_box_'+position).removeClass('cross_board_box_8').attr('data-id',position); }
+        winsteps();
     }
 
     function shuffle(){
         window.location.reload();
     }
 
+    function winsteps(){
+        let ids = [];
+        let arr = ["1","2","3","4","5","6","7","8"];
+        $.each($('.cross_board_boxes').children(),function(i,v){
+            ids.push(v.getAttribute('data-id'));
+            // console.log(v.getAttribute('data-id'));
+        });
+        if (JSON.stringify(ids) === JSON.stringify(arr)) {
+            // console.log(JSON.stringify(ids),JSON.stringify(arr));
+            setTimeout(function () {
+                // alert('success');
+                swal( "Congratulation! Round Wins" ,  "" ,  "success" ).then(function(){
+                    window.location.reload();
+                });
+            }, 500);
 
+        }
+    }
 
 
 </script>
